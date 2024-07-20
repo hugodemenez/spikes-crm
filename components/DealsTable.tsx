@@ -56,13 +56,12 @@ function renderStatus(status: string) {
             return <div className="bg-blue-500 h-2 w-2 rounded-full"></div>;
     }
 }
+
 export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
 
 
     const [deals, setDeals] = useState(initialDeals); // Initialize state with initial deals
-    useEffect(() => {
-        console.log(deals)
-    }, [deals]);
+
 
     const handleCheckAll = (checked: boolean) => {
         const updatedDeals = deals.map(deal => ({ ...deal, checked }));
@@ -75,14 +74,28 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
     const [openStatusSearch, setOpenStatusSearch] = React.useState(false)
     const [statusSearchValue, setStatusSearchValue] = React.useState("")
 
-    return (
-        <div className="overflow-auto h-full flex flex-col">
 
-            <div className="flex justify-between">
+    return (
+        <div className="h-full flex flex-col gap-y-2 overflow-hidden">
+            <div className="flex justify-between p-2">
                 <div className="flex gap-x-2 items-center max-w-2xl">
                     <div className=" flex items-center relative" >
                         <Search className=" left-2 absolute h-4 w-4 shrink-0 opacity-50" />
                         <Input
+                            onChange={(event) => {
+                                const value = event.target.value
+                                // Reset the deals taking statusSearchValue and companySearchValue into account
+                                setDeals(initialDeals.filter(deal =>
+                                    (deal.status === statusSearchValue || statusSearchValue === "")
+                                    &&
+                                    (deal.company === companySearchValue || companySearchValue === "")))
+                                if (value === "") {
+                                    return
+                                }
+                                setDeals(deals.filter(deal => deal.object.toLowerCase().includes(value.toLowerCase())))
+                            }
+                            }
+
                             className={cn(
                                 "flex h-10 w-full rounded-md bg-transparent text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
                                 "pl-8"
@@ -105,19 +118,27 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                             </Button>
                         </PopoverTrigger>
                         <PopoverContent className="w-[400px] p-0">
-                            <Command>
+                            <Command label="search object command">
                                 <CommandList>
                                     <CommandInput placeholder="Search object..." />
                                     <CommandEmpty>No deal found.</CommandEmpty>
                                     <CommandGroup>
-                                        {initialDeals.map((deal) => (
+                                        {deals.map((deal) => (
                                             <CommandItem
                                                 key={deal.object}
                                                 value={deal.object}
                                                 onSelect={(currentValue) => {
                                                     setObjectSearchValue(currentValue === objectSearchValue ? "" : currentValue)
                                                     setOpenObjectSearch(false)
-                                                    setDeals(initialDeals.filter(deal => deal.object === currentValue))
+                                                    if (currentValue === objectSearchValue) {
+                                                        // Reset the deals taking statusSearchValue and companySearchValue into account
+                                                        setDeals(initialDeals.filter(deal =>
+                                                            (deal.status === statusSearchValue || statusSearchValue === "")
+                                                            &&
+                                                            (deal.company === companySearchValue || companySearchValue === "")))
+                                                        return
+                                                    }
+                                                    setDeals(deals.filter(deal => deal.object === currentValue))
                                                 }}
                                             >
                                                 <Check
@@ -140,11 +161,11 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                             <Button
                                 variant="outline"
                                 role="combobox"
-                                aria-expanded={openObjectSearch}
+                                aria-expanded={openCompanySearch}
                                 className="w-[300px] justify-between"
                             >
                                 {companySearchValue
-                                    ? initialDeals.find((deal) => deal.company === companySearchValue)?.company.length ?? 0 > 22 ? `${initialDeals.find((deal) => deal.company === companySearchValue)?.company.slice(0, 22)}...` : initialDeals.find((deal) => deal.company === companySearchValue)?.company
+                                    ? initialDeals.find((deal) => deal.company === companySearchValue)?.company
                                     : "Company"}
                                 <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
@@ -155,13 +176,21 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                                     <CommandInput placeholder="Search company..." />
                                     <CommandEmpty>No deal found.</CommandEmpty>
                                     <CommandGroup>
-                                        {initialDeals.map((deal) => (
+                                        {deals.map((deal) => (
                                             <CommandItem
                                                 key={deal.company}
                                                 value={deal.company}
                                                 onSelect={(currentValue) => {
-                                                    setObjectSearchValue(currentValue === companySearchValue ? "" : currentValue)
-                                                    setOpenObjectSearch(false)
+                                                    setCompanySearchValue(currentValue === companySearchValue ? "" : currentValue)
+                                                    setOpenCompanySearch(false)
+                                                    if (currentValue === companySearchValue) {
+                                                        // Reset the deals taking statusSearchValue and companySearchValue into account
+                                                        setDeals(initialDeals.filter(deal =>
+                                                            (deal.status === statusSearchValue || statusSearchValue === "")
+                                                            &&
+                                                            (deal.object === objectSearchValue || objectSearchValue === "")))
+                                                        return
+                                                    }
                                                     setDeals(initialDeals.filter(deal => deal.company === currentValue))
                                                 }}
                                             >
@@ -194,28 +223,37 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                             </Button>
                         </PopoverTrigger>
                         <PopoverContent className="w-[400px] p-0">
-                            <Command>
+                            <Command label="search status command">
                                 <CommandList>
                                     <CommandInput placeholder="Search status..." />
                                     <CommandEmpty>No deal found.</CommandEmpty>
                                     <CommandGroup>
-                                        {initialDeals.map((deal) => (
+                                        {Array.from(new Set(initialDeals.map(deal => deal.status))).map((status) => (
                                             <CommandItem
-                                                key={deal.status}
-                                                value={deal.status}
+                                                key={status}
+                                                value={status}
                                                 onSelect={(currentValue) => {
-                                                    setObjectSearchValue(currentValue === statusSearchValue ? "" : currentValue)
-                                                    setOpenObjectSearch(false)
+                                                    console.log(currentValue)
+                                                    setStatusSearchValue(currentValue === statusSearchValue ? "" : currentValue)
+                                                    setOpenStatusSearch(false)
+                                                    if (currentValue === statusSearchValue) {
+                                                        // Reset the deals taking statusSearchValue and companySearchValue into account
+                                                        setDeals(deals.filter(deal =>
+                                                            (deal.company === companySearchValue || companySearchValue === "")
+                                                            &&
+                                                            (deal.object === objectSearchValue || objectSearchValue === "")))
+                                                        return
+                                                    }
                                                     setDeals(initialDeals.filter(deal => deal.status === currentValue))
                                                 }}
                                             >
                                                 <Check
                                                     className={cn(
                                                         "mr-2 h-4 w-4",
-                                                        statusSearchValue === deal.status ? "opacity-100" : "opacity-0"
+                                                        statusSearchValue === status ? "opacity-100" : "opacity-0"
                                                     )}
                                                 />
-                                                {deal.status}
+                                                {status}
                                             </CommandItem>
                                         ))}
 
@@ -224,6 +262,15 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                             </Command>
                         </PopoverContent>
                     </Popover>
+                    {
+                        (objectSearchValue !== "" || companySearchValue !== "" || statusSearchValue !== "") &&
+                        <Button variant={'ghost'} onClick={() => {
+                            setDeals(initialDeals)
+                            setObjectSearchValue("")
+                            setCompanySearchValue("")
+                            setStatusSearchValue("")
+                        }}>X</Button>
+                    }
 
                 </div>
                 <div className="flex gap-x-2">
@@ -242,42 +289,42 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                 </div>
             </div>
             {/* <DataTable columns={columns} data={deals}></DataTable> */}
-            <Table className="w-full h-full">
-                <TableHeader>
-                    <TableRow>
-                        <TableHead><Checkbox onCheckedChange={handleCheckAll} /></TableHead>
-                        <TableHead className="w-[100px]">Add</TableHead>
-                        <TableHead className="w-[300px]">Object</TableHead>
-                        <TableHead className="w-[300px]">Company</TableHead>
-                        <TableHead className="w-[300px]">Status</TableHead>
-                        <TableHead className="w-[200px] text-right">Amount</TableHead>
+            <Table className="w-full h-full relative flex flex-col">
+                <TableHeader className="sticky w-full flex">
+                    <TableRow className="w-full bg-muted flex items-center">
+                        <TableHead className="w-[50px] flex items-center"><Checkbox onCheckedChange={handleCheckAll} /></TableHead>
+                        <TableHead className="w-[100px] flex items-center">Add</TableHead>
+                        <TableHead className="w-[300px] flex items-center">Object</TableHead>
+                        <TableHead className="w-[300px] flex items-center">Company</TableHead>
+                        <TableHead className="w-[300px] flex items-center">Status</TableHead>
+                        <TableHead className="flex-1 text-right flex items-center self-end">Amount</TableHead>
                     </TableRow>
                 </TableHeader>
-                <TableBody className="overflow-auto h-full">
+                <TableBody className=" flex flex-col h-full flex-1 overflow-auto">
                     {
                         deals.map((deal) => (
-                            <TableRow key={deal.id}>
-                                <TableCell><Checkbox checked={deal.checked} /></TableCell>
-                                <TableCell>{deal.date}</TableCell>
-                                <TableCell>{deal.object.length > 22 ? `${deal.object.slice(0, 22)}...` : deal.object}</TableCell>
-                                <TableCell>
+                            <TableRow key={deal.id} className="">
+                                <TableCell className="w-[50px]"><Checkbox checked={deal.checked} /></TableCell>
+                                <TableCell className="w-[100px]">{deal.date}</TableCell>
+                                <TableCell className="w-[300px]">{deal.object.length > 22 ? `${deal.object.slice(0, 22)}...` : deal.object}</TableCell>
+                                <TableCell className="w-[300px]">
                                     <div className="flex items-center gap-x-2">
                                         {deal.companyIcon}{deal.company}
                                     </div>
                                 </TableCell>
-                                <TableCell>
+                                <TableCell className="w-[300px]">
                                     <div className="flex gap-x-2 items-center">
                                         {renderStatus(deal.status)}
                                         {deal.status}
                                     </div>
                                 </TableCell>
-                                <TableCell className="text-right">{deal.amount}</TableCell>
+                                <TableCell className="text-right w-[200px]">{deal.amount}</TableCell>
                             </TableRow>
                         ))
                     }
                 </TableBody>
             </Table>
         </div>
-
     )
 }
+

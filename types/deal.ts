@@ -4,7 +4,7 @@ type Deal = {
     date: string;
     object: string;
     company: string;
-    companyIcon: JSX.Element;
+    companyIcon: any;
     status: string;
     amount: string;
     };

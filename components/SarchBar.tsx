@@ -14,6 +14,7 @@ import { Search } from "lucide-react"
 import React from "react"
 import { Input } from "./ui/input"
 import { cn } from "@/lib/utils"
+import Link from "next/link"
 
 export default function SearchBar() {
     const [open, setOpen] = React.useState(false)
@@ -48,14 +49,27 @@ export default function SearchBar() {
             </div>
 
             <div className="fixed">
-                <CommandDialog open={open} onOpenChange={setOpen}>
+                <CommandDialog open={open} onOpenChange={setOpen} label="global search bar" >
                     <CommandInput placeholder="Type a command or search..." />
                     <CommandList>
                         <CommandEmpty>No results found.</CommandEmpty>
                         <CommandGroup heading="Suggestions">
-                            <CommandItem>Calendar</CommandItem>
-                            <CommandItem>Search Emoji</CommandItem>
-                            <CommandItem>Calculator</CommandItem>
+                            <Link href={"/clients"}>
+                                <CommandItem 
+                                className="cursor-pointer"
+                                    onSelect={() => setOpen(false)}
+                                >
+                                    Clients
+                                </CommandItem>
+                            </Link>
+                            <Link href={"/deals"}>
+                                <CommandItem
+                                    className="cursor-pointer"
+                                    onSelect={() => setOpen(false)}
+                                >
+                                    Deals
+                                </CommandItem>
+                            </Link>
                         </CommandGroup>
                     </CommandList>
                 </CommandDialog>

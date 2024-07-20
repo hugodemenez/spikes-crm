@@ -31,7 +31,7 @@ export default function RootLayout({
       >
         <div className="flex p-12 gap-x-8 flex-1">
           <Navbar></Navbar>
-          <div className="h-full overflow-hidden w-full">
+          <div className="flex h-full overflow-hidden w-full">
             {children}
           </div>
         </div>
