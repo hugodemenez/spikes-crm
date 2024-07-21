@@ -16,7 +16,7 @@ import { Button } from "./ui/button"
 import { set } from "react-hook-form"
 
 
-const dealsData: Deal[] = [
+const initialDeals: Deal[] = [
     {
         id: 1,
         checked: false,
@@ -112,7 +112,6 @@ const dealsData: Deal[] = [
 
 
 export default function Deals() {
-    const [initialDeals, setInitialDeals] = useLocalStorage<Deal[]>('deals', dealsData)
 
     return (
         <Card className="h-full flex flex-col w-full border-r-0 rounded-r-none">

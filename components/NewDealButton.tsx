@@ -12,7 +12,7 @@ import NewDealForm from "./NewDealForm"
 import React from "react"
 
 
-export default function NewDealButton() {
+export default function NewDealButton({deals}: {deals: Deal[]}) {
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -27,7 +27,7 @@ export default function NewDealButton() {
                 <DialogHeader>
                     <DialogTitle>Add a new table entry</DialogTitle>
                     <DialogDescription>
-                        <NewDealForm ></NewDealForm>
+                        <NewDealForm deals={deals} ></NewDealForm>
                     </DialogDescription>
                 </DialogHeader>
             </DialogContent>

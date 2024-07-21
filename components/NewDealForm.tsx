@@ -27,7 +27,7 @@ import { DialogClose } from "./ui/dialog"
 
 
 
-export default function NewDealForm() {
+export default function NewDealForm({deals}: {deals: Deal[]}) {
   const [newDeals, setNewDeals] = useLocalStorage<Deal[]>("deals", [])
   const formSchema = z.object({
 
@@ -40,7 +40,7 @@ export default function NewDealForm() {
     companyLogo: z.string().url({
       message: "Put a valid URL for the company logo",
     }),
-    status: z.enum(['', ...Array.from(new Set(newDeals.map(deal => deal.status)))], {
+    status: z.enum(['', ...Array.from(new Set(deals.map(deal => deal.status)))], {
       message: "Invalid status",
     }),
     amount: z.string({
@@ -138,7 +138,7 @@ export default function NewDealForm() {
                     <SelectValue placeholder="Choose a status" />
                   </SelectTrigger>
                   <SelectContent>
-                    {Array.from(new Set(newDeals.map(deal => deal.status))).map((status) => (
+                    {Array.from(new Set(deals.map(deal => deal.status))).map((status) => (
                       <SelectItem key={status} value={status}>
                         {status}
                       </SelectItem>
