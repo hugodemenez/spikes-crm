@@ -94,7 +94,7 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
     return (
         <div className="h-full flex flex-col gap-y-6 overflow-hidden">
             <div className="flex justify-between py-2 px-2 sm:pl-4 sm:pr-16  flex-wrap gap-y-2 h-fit">
-                <div className="flex gap-x-2 items-center w-2xl flex-wrap gap-y-2 h-fit">
+                <div className="flex gap-x-2 items-center w-2xl flex-wrap gap-y-2 h-fit justify-between sm:justify-normal">
                     <div className="w-full sm:w-[250px]  flex items-center relative" >
                         <Search className=" left-2 absolute h-4 w-4 shrink-0 opacity-50 " />
                         <Input
@@ -126,14 +126,14 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                                 variant="outline"
                                 role="combobox"
                                 aria-expanded={openObjectSearch}
-                                className="w-[120px] justify-between max-h-8"
+                                className="w-[111px] justify-between max-h-8"
                             >
                                 <p className="truncate w-full">
                                 {objectSearchValue
                                     ? initialDeals.find((deal) => deal.object === objectSearchValue)?.object.length ?? 0 > 22 ? `${initialDeals.find((deal) => deal.object === objectSearchValue)?.object.slice(0, 22)}...` : initialDeals.find((deal) => deal.object === objectSearchValue)?.object
                                     : "Object"}
                                 </p>
-                                <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                <ChevronDown className="ml-2 h-3 w-3 shrink-0 opacity-50" />
                             </Button>
                         </PopoverTrigger>
                         <PopoverContent className="w-[200px] sm:w-[400px] p-0">
@@ -181,7 +181,7 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                                 variant="outline"
                                 role="combobox"
                                 aria-expanded={openCompanySearch}
-                                className="w-[140px] justify-between max-h-8"
+                                className="w-[130px] justify-between max-h-8"
                             >
                                 <p className="w-full truncate">
                                 {companySearchValue
@@ -235,7 +235,7 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                                 variant="outline"
                                 role="combobox"
                                 aria-expanded={openStatusSearch}
-                                className="w-[120px] justify-between max-h-8"
+                                className="w-[110px] justify-between max-h-8"
                             >
                                 <p className="w-full truncate">
                                 {statusSearchValue

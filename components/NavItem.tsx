@@ -83,7 +83,7 @@ export default function NavItem({ path }: { path: string }) {
     const pathname = usePathname()
     if (!paths[path]) return null
     return (
-        <ul className="flex flex-col gap-2">
+        <ul className="flex flex-col gap-3">
             <Link href={paths[path].path}>
                 <li
                     className={cn(
@@ -91,7 +91,7 @@ export default function NavItem({ path }: { path: string }) {
                         pathname === paths[path].path && "bg-white"
 
                     )}>
-                    <div className="scale-75">
+                    <div className="h-6 w-6 flex items-center">
                     {paths[path].icon}
                     </div>
                     {paths[path].displayName}
