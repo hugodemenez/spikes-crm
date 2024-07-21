@@ -299,7 +299,7 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                         </svg>
                         Export
                     </Button>
-                    <NewDealButton deals={deals}></NewDealButton>
+                    <NewDealButton deals={initialDeals}></NewDealButton>
                 </div>
             </div>
             {/* <DataTable columns={columns} data={deals}></DataTable> */}

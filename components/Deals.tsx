@@ -8,12 +8,7 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import Image from "next/image"
 import DealsTable from "./DealsTable"
-import { useLocalStorage } from "@/lib/localStorage"
-import { RefreshCcw } from "lucide-react"
-import { Button } from "./ui/button"
-import { set } from "react-hook-form"
 
 
 const initialDeals: Deal[] = [

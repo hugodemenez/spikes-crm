@@ -12,7 +12,6 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { useLocalStorage } from "@/lib/localStorage"
 import {
   Select,
   SelectContent,
@@ -28,7 +27,6 @@ import { DialogClose } from "./ui/dialog"
 
 
 export default function NewDealForm({deals}: {deals: Deal[]}) {
-  const [newDeals, setNewDeals] = useLocalStorage<Deal[]>("deals", [])
   const formSchema = z.object({
 
     object: z.string().min(2, {
@@ -60,7 +58,7 @@ export default function NewDealForm({deals}: {deals: Deal[]}) {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const newDeal: Deal = {
-      id: newDeals.length + 1,
+      id: deals.length + 1,
       checked: false,
       date: new Date().toLocaleDateString(),
       ...values,
