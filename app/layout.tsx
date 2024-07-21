@@ -26,11 +26,11 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "h-screen box-content bg-gray-100 font-sans antialiased flex w-screen",
+          "h-svh box-content bg-gray-100 font-sans antialiased flex w-screen overflow-hidden",
           fontSans.variable
         )}
       >
-        <div className="flex p-8 pr-0 gap-x-8 flex-1 w-full">
+        <div className="flex sm:p-8 pr-0 sm:gap-x-8 flex-1 w-full">
           <Navbar></Navbar>
           <div className="flex h-full overflow-hidden w-full">
             {children}

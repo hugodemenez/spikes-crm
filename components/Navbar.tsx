@@ -29,19 +29,38 @@ import {
 
 
 import { Progress } from "@/components/ui/progress"
-import { ChevronDown } from "lucide-react";
+import { ArrowLeftToLine, ArrowRightToLine, ChevronDown } from "lucide-react";
 import UserCard from "./UserCard";
+import React from "react";
 
 
 export default function Navbar() {
+    const [collpase, setCollapse] = React.useState(false)
     const numberOfDeals = 10
     const numberOfLeads = 30
     return (
         <nav
             id="left-pane"
-            className="flex flex-col gap-y-2 overflow-y-auto px-2 min-w-[270px]"
+            className={cn(
+                "flex flex-col gap-y-2  px-2 transition-all",
+                collpase ? "w-16" : "min-w-[270px] overflow-y-auto"
+            )}
         >
-            <Image src={"/logo.png"} width={42} height={42} alt={"crm logo"}></Image>
+            <div className="flex w-full justify-between">
+            {!collpase &&<Image src={"/logo.png"} width={42} height={42} alt={"crm logo"}></Image>}
+            {!collpase &&
+            <Button variant={'ghost'} onClick={()=>setCollapse(true)}>
+            <ArrowLeftToLine />
+            </Button>
+            }
+            {collpase &&
+            <Button variant={'ghost'} onClick={()=>setCollapse(false)}>
+            <ArrowRightToLine />
+            </Button>
+            }
+            </div>
+            {!collpase &&
+            <>
             <SearchBar></SearchBar>
             <div className="flex flex-col gap-2">
                 <h2 className="font-semibold text-muted-foreground text-sm">Navigation</h2>
@@ -88,6 +107,10 @@ export default function Navbar() {
             </Card>
             <UserCard></UserCard>
             </div>
+            </>
+            
+            }
+            
         </nav>
     )
 }
