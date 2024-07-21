@@ -3,8 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Inter as FontSans } from "next/font/google"
 import { cn } from "@/lib/utils"
-import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/sonner";
+import NavbarWrapper from "@/components/NavbarWrapper";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -31,7 +31,7 @@ export default function RootLayout({
         )}
       >
         <div className="flex-col flex sm:flex-row sm:py-8 sm:pl-4 pr-0 sm:gap-x-8 flex-1 w-full">
-          <Navbar></Navbar>
+          <NavbarWrapper></NavbarWrapper>
           <div className="flex h-full overflow-hidden w-full">
             {children}
           </div>
