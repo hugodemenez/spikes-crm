@@ -49,7 +49,7 @@ export default function SearchBar() {
             </div>
 
             <div className="fixed">
-                <CommandDialog open={open} onOpenChange={setOpen} label="global search bar" >
+                <CommandDialog open={open} onOpenChange={setOpen}  >
                     <CommandInput placeholder="Type a command or search..." />
                     <CommandList>
                         <CommandEmpty>No results found.</CommandEmpty>

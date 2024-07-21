@@ -137,7 +137,7 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                             </Button>
                         </PopoverTrigger>
                         <PopoverContent className="w-[400px] p-0">
-                            <Command label="search object command">
+                            <Command >
                                 <CommandList>
                                     <CommandInput placeholder="Search object..." />
                                     <CommandEmpty>No deal found.</CommandEmpty>
@@ -242,7 +242,7 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                             </Button>
                         </PopoverTrigger>
                         <PopoverContent className="w-[400px] p-0">
-                            <Command label="search status command">
+                            <Command >
                                 <CommandList>
                                     <CommandInput placeholder="Search status..." />
                                     <CommandEmpty>No deal found.</CommandEmpty>
