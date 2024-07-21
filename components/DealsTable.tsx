@@ -126,7 +126,7 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                                 variant="outline"
                                 role="combobox"
                                 aria-expanded={openObjectSearch}
-                                className="w-[111px] justify-between max-h-8"
+                                className="w-[110px] justify-between max-h-8"
                             >
                                 <p className="truncate w-full">
                                 {objectSearchValue
@@ -136,10 +136,10 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                                 <ChevronDown className="ml-2 h-3 w-3 shrink-0 opacity-50" />
                             </Button>
                         </PopoverTrigger>
-                        <PopoverContent className="w-[200px] sm:w-[400px] p-0">
+                        <PopoverContent className="w-[150px] sm:w-[400px] p-0">
                             <Command >
                                 <CommandList>
-                                    <CommandInput placeholder="Search object..." />
+                                    <CommandInput placeholder="Search object..." className="text-lg sm:text-sm" />
                                     <CommandEmpty>No deal found.</CommandEmpty>
                                     <CommandGroup>
                                         {deals.map((deal) => (
@@ -191,10 +191,10 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                                 <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
                         </PopoverTrigger>
-                        <PopoverContent className="w-[200px] p-0">
+                        <PopoverContent className="w-[150px] sm:w-[400px] p-0">
                             <Command>
                                 <CommandList>
-                                    <CommandInput placeholder="Search company..." />
+                                    <CommandInput placeholder="Search company..." className="text-lg sm:text-sm" />
                                     <CommandEmpty>No deal found.</CommandEmpty>
                                     <CommandGroup>
                                         {deals.map((deal) => (
@@ -248,7 +248,7 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                         <PopoverContent className="w-[150px] sm:w-[400px] p-0">
                             <Command >
                                 <CommandList>
-                                    <CommandInput placeholder="Search status..." />
+                                    <CommandInput placeholder="Search status..." className="text-lg sm:text-sm"/>
                                     <CommandEmpty>No deal found.</CommandEmpty>
                                     <CommandGroup>
                                         {Array.from(new Set(deals.map(deal => deal.status))).map((status) => (
