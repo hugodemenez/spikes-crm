@@ -25,7 +25,7 @@ export default function NavbarWrapper(){
         <SheetContent side={'right'} className={cn(
             "flex flex-col gap-y-2  px-2 transition-all min-w-[270px] overflow-y-auto",
         )}>
-
+            <Navbar></Navbar>
         </SheetContent>
     </Sheet>
     )
