@@ -110,12 +110,12 @@ export default function Deals() {
 
     return (
         <Card className="h-full flex flex-col w-full border-r-0 rounded-r-none">
-            <CardHeader className="flex p-6 sm:p-6">
+            <CardHeader className="flex p-6 sm:p-6 sm:pb-0">
                 <CardTitle>
                     Deals
                 </CardTitle>
             </CardHeader>
-            <CardContent className="h-full w-full flex flex-col flex-1 box-border overflow-hidden pr-0 pb-0 p-0 sm:p-6">
+            <CardContent className="h-full w-full flex flex-col flex-1 box-border overflow-hidden pr-0 pb-0 p-0 sm:pl-6">
                 <Tabs defaultValue="all-deals" className="flex flex-col h-full w-full sm:gap-y-7  ">
                     <TabsList className="flex self-start flex-wrap object-left h-fit">
                         <TabsTrigger value="all-deals">All Deals</TabsTrigger>
