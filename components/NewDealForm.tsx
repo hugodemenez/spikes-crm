@@ -22,11 +22,12 @@ import {
 } from "@/components/ui/select"
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 import { toast } from "sonner"
+import { DialogClose } from "./ui/dialog"
 
 
 
 
-export default function NewDealForm({setIsOpen}:{setIsOpen: (isOpen: boolean) => void}) {
+export default function NewDealForm() {
   const [newDeals, setNewDeals] = useLocalStorage<Deal[]>("deals", [])
   const formSchema = z.object({
 
@@ -67,7 +68,6 @@ export default function NewDealForm({setIsOpen}:{setIsOpen: (isOpen: boolean) =>
     }
     console.log(newDeal)
     toast("No database connected, but the deal is concluded, thanks !")
-    setIsOpen(false)
   }
   return (
     <Form {...form}>
@@ -169,7 +169,9 @@ export default function NewDealForm({setIsOpen}:{setIsOpen: (isOpen: boolean) =>
             </FormItem>
           )}
         />
+        <DialogClose>
         <Button type="submit">Add</Button>
+        </DialogClose>
       </form>
     </Form>
 
