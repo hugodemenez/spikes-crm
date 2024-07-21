@@ -30,7 +30,7 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <div className="flex-col flex sm:flex-row sm:p-8 pr-0 sm:gap-x-8 flex-1 w-full">
+        <div className="flex-col flex sm:flex-row sm:py-8 sm:pl-4 pr-0 sm:gap-x-8 flex-1 w-full">
           <Navbar></Navbar>
           <div className="flex h-full overflow-hidden w-full">
             {children}

@@ -126,11 +126,13 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                                 variant="outline"
                                 role="combobox"
                                 aria-expanded={openObjectSearch}
-                                className="w-fit justify-between max-h-8"
+                                className="w-[120px] justify-between max-h-8"
                             >
+                                <p className="truncate w-full">
                                 {objectSearchValue
                                     ? initialDeals.find((deal) => deal.object === objectSearchValue)?.object.length ?? 0 > 22 ? `${initialDeals.find((deal) => deal.object === objectSearchValue)?.object.slice(0, 22)}...` : initialDeals.find((deal) => deal.object === objectSearchValue)?.object
                                     : "Object"}
+                                </p>
                                 <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
                         </PopoverTrigger>
@@ -179,11 +181,13 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                                 variant="outline"
                                 role="combobox"
                                 aria-expanded={openCompanySearch}
-                                className="w-fit justify-between max-h-8"
+                                className="w-[140px] justify-between max-h-8"
                             >
+                                <p className="w-full truncate">
                                 {companySearchValue
                                     ? initialDeals.find((deal) => deal.company === companySearchValue)?.company
                                     : "Company"}
+                                </p>
                                 <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
                         </PopoverTrigger>
@@ -231,11 +235,13 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                                 variant="outline"
                                 role="combobox"
                                 aria-expanded={openStatusSearch}
-                                className="w-fit max-h-8 justify-between"
+                                className="w-[120px] justify-between max-h-8"
                             >
+                                <p className="w-full truncate">
                                 {statusSearchValue
                                     ? initialDeals.find((deal) => deal.status === statusSearchValue)?.status.length ?? 0 > 22 ? `${initialDeals.find((deal) => deal.status === statusSearchValue)?.status.slice(0, 22)}...` : initialDeals.find((deal) => deal.status === statusSearchValue)?.status
                                     : "Status"}
+                                </p>
                                 <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
                         </PopoverTrigger>
@@ -282,7 +288,7 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                     </Popover>
                     {
                         (objectSearchValue !== "" || companySearchValue !== "" || statusSearchValue !== "") &&
-                        <Button variant={'ghost'} onClick={() => {
+                        <Button variant={'ghost'} className='h-8' onClick={() => {
                             setDeals(initialDeals)
                             setObjectSearchValue("")
                             setCompanySearchValue("")
