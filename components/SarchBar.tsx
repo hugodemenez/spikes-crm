@@ -36,14 +36,14 @@ export default function SearchBar() {
                 <Input
                     className={cn(
                         "flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
-                        "pl-8"
+                        "pl-8 bg-background"
                     )}
                     placeholder="Search"
                     onClick={() => setOpen(true)}
                 />
-                <p className="text-sm text-muted-foreground absolute right-2">
+                <p className="text-sm text-muted-foreground absolute right-2 flex items-center">
                     <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-                        <span className="text-xs">⌘</span>K
+                        <span className="text-sm font-bold">⌘ K</span>
                     </kbd>
                 </p>
             </div>

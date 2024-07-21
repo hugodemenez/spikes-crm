@@ -97,8 +97,7 @@ export default function NavItem({ path }: { path: string }) {
                     {paths[path].displayName}
                     {
                         path === 'notifications' && notificationsCount > 0 && (
-                            <Badge className="rounded-sm px-4" >{notificationsCount}</Badge>
-
+                            <Badge className="rounded-sm px-2 min-w-[30px] flex items-center justify-around text-[8px] h-4" >{notificationsCount}</Badge>
                         )
                     }
                 </li>

@@ -30,6 +30,7 @@ import {
 
 import { Progress } from "@/components/ui/progress"
 import { ChevronDown } from "lucide-react";
+import UserCard from "./UserCard";
 
 
 export default function Navbar() {
@@ -38,7 +39,7 @@ export default function Navbar() {
     return (
         <nav
             id="left-pane"
-            className="flex flex-col gap-y-2 overflow-y-auto px-2"
+            className="flex flex-col gap-y-2 overflow-y-auto px-2 min-w-[270px]"
         >
             <Image src={"/logo.png"} width={42} height={42} alt={"crm logo"}></Image>
             <SearchBar></SearchBar>
@@ -61,8 +62,8 @@ export default function Navbar() {
                 <NavItem path="settings"></NavItem>
             </div>
 
-            <div className="flex flex-col justify-between h-full">
-            <Card>
+            <div className="flex flex-col justify-between h-full pt-12">
+            <Card className="mb-2">
                 <CardHeader>
                     <CardTitle className="flex gap-x-2 text-sm">
                         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -85,22 +86,7 @@ export default function Navbar() {
                     </Button>
                 </CardFooter>
             </Card>
-            <Card>
-                <CardContent className="flex p-2 items-center gap-x-2">
-                        <div className="flex-1 relative">
-                            <Image src={"/user.png"} alt={"user avatar"} height={64} width={64} className="rounded-lg"></Image>
-                            <Image src={"/company.png"} alt={"company logo"} height={64} width={64} className="rounded-lg border-4 border-white absolute scale-[30%] right-0 bottom-0 origin-bottom-right"></Image>
-                        </div>
-                        <div className="flex flex-col justify-around text-xs">
-                            <h2>Arthur Bossuyt</h2>
-                            <a href="mailto:arthur@squared.studio" className="text-muted-foreground">Arthur@squared.studio</a>
-                        </div>
-                        <div>
-                        <ChevronDown></ChevronDown>
-                        </div>
-                </CardContent>
-                
-            </Card>
+            <UserCard></UserCard>
             </div>
         </nav>
     )
