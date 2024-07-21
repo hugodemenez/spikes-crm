@@ -110,7 +110,7 @@ export default function Deals() {
 
     return (
         <Card className="h-full flex flex-col w-full border-r-0 rounded-r-none">
-            <CardHeader className="flex p-2 sm:p-6 pb-2 ">
+            <CardHeader className="flex p-6 sm:p-6">
                 <CardTitle>
                     Deals
                 </CardTitle>

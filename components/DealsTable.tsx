@@ -93,11 +93,12 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
 
     return (
         <div className="h-full flex flex-col gap-y-6 overflow-hidden">
-            <div className="flex justify-between py-2 pl-4 pr-16  flex-wrap gap-y-2 h-fit">
+            <div className="flex justify-between py-2 px-2 sm:pl-4 sm:pr-16  flex-wrap gap-y-2 h-fit">
                 <div className="flex gap-x-2 items-center w-2xl flex-wrap gap-y-2 h-fit">
-                    <div className=" flex items-center relative" >
+                    <div className="w-full sm:w-[250px]  flex items-center relative" >
                         <Search className=" left-2 absolute h-4 w-4 shrink-0 opacity-50 " />
                         <Input
+                        
                             onChange={(event) => {
                                 const value = event.target.value
                                 // Reset the deals taking statusSearchValue and companySearchValue into account
@@ -114,7 +115,7 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
 
                             className={cn(
                                 "flex h-8 w-full rounded-md bg-transparent text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
-                                "pl-8"
+                                "pl-8 text-lg sm:text-sm"
                             )}
                             placeholder="Search"
                         />
@@ -303,7 +304,7 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
             <Table className="w-full h-full relative flex flex-col">
                 <TableHeader className="sticky w-full flex">
                     <TableRow className="w-full bg-muted flex items-center min-h-6 flex-shrink-0 overflow-x-hidden">
-                        <TableHead className="w-[50px] flex-shrink-0 hidden sm:flex  items-center"><Checkbox onCheckedChange={handleCheckAll} /></TableHead>
+                        <TableHead className="w-[50px] flex-shrink-0 flex  items-center"><Checkbox onCheckedChange={handleCheckAll} /></TableHead>
                         <TableHead className="w-[100px] flex-shrink-0 hidden sm:flex  items-center">Add</TableHead>
                         <TableHead className="w-[100px] sm:w-[250px] flex-shrink-0 flex items-center">Object</TableHead>
                         <TableHead className="w-[80px] sm:w-[250px] flex-shrink-0 flex items-center">Company</TableHead>
@@ -319,7 +320,7 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                     {
                         deals.map((deal) => (
                             <TableRow key={deal.id} className="w-full flex items-center min-h-[72px] flex-shrink-0">
-                                <TableCell className="hidden sm:flex flex-shrink-0 w-[50px]"><Checkbox checked={deal.checked} onCheckedChange={(checked) => handleCheck(deal, Boolean(checked))} /></TableCell>
+                                <TableCell className="flex flex-shrink-0 w-[50px]"><Checkbox checked={deal.checked} onCheckedChange={(checked) => handleCheck(deal, Boolean(checked))} /></TableCell>
                                 <TableCell className="hidden sm:flex  flex-shrink-0 w-[100px]">{deal.date}</TableCell>
                                 <TableCell className="flex-shrink-0 w-[100px] sm:w-[250px]">{deal.object.length > 22 ? `${deal.object.slice(0, 22)}...` : deal.object}</TableCell>
                                 <TableCell className="flex-shrink-0 w-[80px] sm:w-[250px]">
