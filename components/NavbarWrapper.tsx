@@ -30,7 +30,7 @@ export default function NavbarWrapper(){
     </Sheet>
     )
     return(
-        <Navbar></Navbar>
+        <Navbar classname='hidden sm:flex'></Navbar>
 
     )
 }

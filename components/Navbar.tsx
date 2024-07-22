@@ -18,7 +18,7 @@ import UserCard from "./UserCard";
 import React from "react";
 
 
-export default function Navbar() {
+export default function Navbar({classname}: {classname?: string}) {
     const numberOfDeals = 10
     const numberOfLeads = 30
 
@@ -27,7 +27,8 @@ export default function Navbar() {
                 id="left-pane"
                 className={cn(
                     "flex-col gap-y-3  px-2 transition-all",
-                    "min-w-[270px] overflow-y-auto hidden sm:flex"
+                    "min-w-[270px] overflow-y-auto ",
+                    classname
                 )}
             >
                 <div className="flex flex-col gap-6">
