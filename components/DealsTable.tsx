@@ -316,7 +316,7 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                     <NewDealButton deals={initialDeals}></NewDealButton>
                 </div>
             </div>
-            <Table className="w-full min-w-fit 2xl:w-full h-full relative flex flex-col">
+            <Table className="w-full min-w-fit h-full relative flex flex-col">
                 <TableHeader className="sticky w-full flex">
                     <TableRow className="w-full bg-muted flex items-center justify-between min-h-6 flex-shrink-0 overflow-x-hidden">
                         <TableHead className="min-w-[50px] flex-shrink-0 flex  items-center"><Checkbox onCheckedChange={handleCheckAll} /></TableHead>

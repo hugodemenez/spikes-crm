@@ -18,7 +18,7 @@ import UserCard from "./UserCard";
 import React from "react";
 
 
-export default function Navbar({ classname }: { classname?: string }) {
+export default function Navbar({ classname,sm,setOpenSheet }: { classname?: string,sm:boolean,setOpenSheet?:React.Dispatch<React.SetStateAction<boolean>> }) {
     const numberOfDeals = 10
     const numberOfLeads = 30
 
@@ -27,7 +27,7 @@ export default function Navbar({ classname }: { classname?: string }) {
             id="left-pane"
             className={cn(
                 "flex-col px-2 transition-all",
-                "min-w-[270px] justify-between ",
+                "min-w-[270px] justify-between",
                 classname
             )}
         >
@@ -41,21 +41,21 @@ export default function Navbar({ classname }: { classname?: string }) {
                 <div id="links" className="flex flex-col gap-y-3 overflow-y-auto">
                     <div className="flex flex-col gap-1">
                         <h2 className="font-semibold text-[#A0A2A6] text-sm">Navigation</h2>
-                        <NavItem path="home"></NavItem>
-                        <NavItem path="clients"></NavItem>
-                        <NavItem path="leads"></NavItem>
-                        <NavItem path="deals"></NavItem>
+                        <NavItem sm={sm} setOpenSheet={setOpenSheet} path="home"></NavItem>
+                        <NavItem sm={sm} setOpenSheet={setOpenSheet} path="clients"></NavItem>
+                        <NavItem sm={sm} setOpenSheet={setOpenSheet} path="leads"></NavItem>
+                        <NavItem sm={sm} setOpenSheet={setOpenSheet} path="deals"></NavItem>
                     </div>
                     <div className="flex flex-col gap-1">
                         <h2 className="font-semibold text-[#A0A2A6] text-sm">Your Lists</h2>
-                        <NavItem path="inbound"></NavItem>
-                        <NavItem path="outbound"></NavItem>
-                        <NavItem path="ads"></NavItem>
+                        <NavItem sm={sm} setOpenSheet={setOpenSheet} path="inbound"></NavItem>
+                        <NavItem sm={sm} setOpenSheet={setOpenSheet} path="outbound"></NavItem>
+                        <NavItem sm={sm} setOpenSheet={setOpenSheet} path="ads"></NavItem>
                     </div>
                     <div className="flex flex-col gap-1">
                         <h2 className="font-semibold text-[#A0A2A6] text-sm"></h2>
-                        <NavItem path="notifications"></NavItem>
-                        <NavItem path="settings"></NavItem>
+                        <NavItem sm={sm} setOpenSheet={setOpenSheet} path="notifications"></NavItem>
+                        <NavItem sm={sm} setOpenSheet={setOpenSheet} path="settings"></NavItem>
                     </div>
                 </div>
 

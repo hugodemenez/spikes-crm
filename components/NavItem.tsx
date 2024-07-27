@@ -78,13 +78,13 @@ const paths: { [key: string]: { displayName: string; path: string; icon: JSX.Ele
         
     },
 }
-export default function NavItem({ path }: { path: string }) {
+export default function NavItem({ path, sm, setOpenSheet }: { path: string, sm?: boolean, setOpenSheet?: (value: boolean) => void }) {
     const notificationsCount = 3
     const pathname = usePathname()
     if (!paths[path]) return null
     return (
         <ul className="flex flex-col gap-3">
-            <Link href={paths[path].path}>
+            <Link href={paths[path].path} onClick={()=>setOpenSheet?setOpenSheet(false):null}>
                 <li
                     className={cn(
                         "p-2 rounded-lg pl-4 font-semibold text-sm flex gap-x-2 items-center text-[#344054]",

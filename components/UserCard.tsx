@@ -61,7 +61,7 @@ export default function UserCard() {
                     </CardContent>
                 </Card>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-60">
+            <DropdownMenuContent className="w-[252px]">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
