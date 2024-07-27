@@ -19,7 +19,7 @@ import React from "react";
 
 
 export default function Navbar({ classname,sm,setOpenSheet }: { classname?: string,sm:boolean,setOpenSheet?:React.Dispatch<React.SetStateAction<boolean>> }) {
-    const numberOfDeals = 10
+    const numberOfDeals = 25
     const numberOfLeads = 30
 
     return (
@@ -73,8 +73,8 @@ export default function Navbar({ classname,sm,setOpenSheet }: { classname?: stri
                         <CardDescription></CardDescription>
                     </CardHeader>
                     <CardContent className="text-xs flex flex-col gap-y-2">
-                        <Progress className="h-2" value={numberOfDeals} max={numberOfLeads} />
-                        <p>{numberOfDeals} Deals left from {numberOfLeads}</p>
+                        <Progress className="h-2" value={numberOfDeals/numberOfLeads*100} />
+                        <p>{numberOfLeads-numberOfDeals} Deals left from {numberOfLeads} Leads</p>
                     </CardContent>
                     <CardFooter>
                         <Button className={cn(
