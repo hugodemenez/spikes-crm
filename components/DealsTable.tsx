@@ -323,7 +323,7 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                         <TableHead className="min-w-[100px] flex-shrink-0 hidden sm:flex  items-center">Add</TableHead>
                         <TableHead className="min-w-[220px]  flex-shrink-0 flex items-center">Object</TableHead>
                         <TableHead className="min-w-[220px]  flex-shrink-0 flex items-center">Company</TableHead>
-                        <TableHead className="min-w-[200px]  flex-shrink-0 flex items-center">Status</TableHead>
+                        <TableHead className="min-w-[210px]  flex-shrink-0 flex items-center">Status</TableHead>
                         <TableHead className="min-w-[200px] flex text-right items-center self-end flex-shrink-0">
                             <div className="text-right">
                                 Amount
@@ -343,7 +343,7 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                                         <Image src={deal.companyIcon} className="hidden sm:block rounded-full" width={24} height={24} alt={`${deal.company}-logo`} />{deal.company}
                                     </div>
                                 </TableCell>
-                                <TableCell className="min-w-[200px] flex-shrink-0">
+                                <TableCell className="min-w-[210px] flex-shrink-0">
                                     <div className="flex gap-x-2 items-center">
                                         {renderStatus(deal.status)}
                                             {deal.status}
