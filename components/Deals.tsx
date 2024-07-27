@@ -116,14 +116,16 @@ export default function Deals() {
                 </CardTitle>
             </CardHeader>
             <CardContent className="h-full w-full flex flex-col flex-1 box-border overflow-hidden pr-0 pb-0 p-0 sm:pl-6">
-                <Tabs defaultValue="all-deals" className="flex flex-col h-full w-full sm:gap-y-7  ">
-                    <TabsList className="flex self-start flex-wrap object-left h-fit">
+                <Tabs defaultValue="all-deals" className="flex flex-col h-full w-full sm:gap-y-4 ">
+                    <div className="sm:pl-4 self-start h-fit">
+                    <TabsList className="flex self-start flex-wrap object-left justify-start h-fit pb-0 pl-0">
                         <TabsTrigger value="all-deals">All Deals</TabsTrigger>
                         <TabsTrigger value="completed">Completed ({initialDeals.filter(deal => deal.status === 'Completed').length})</TabsTrigger>
                         <TabsTrigger value="pending">Pending  ({initialDeals.filter(deal => deal.status === 'Pending').length})</TabsTrigger>
                         <TabsTrigger value="ongoing">Ongoing ({initialDeals.filter(deal => deal.status === 'Ongoing').length})</TabsTrigger>
                         <TabsTrigger value="waiting-for-confirmation">Waiting for Confirmation ({initialDeals.filter(deal => deal.status === 'Waiting for Confirmation').length})</TabsTrigger>
                     </TabsList>
+                    </div>
                     <TabsContent value="all-deals" asChild>
                         <DealsTable initialDeals={initialDeals}></DealsTable>
                     </TabsContent>

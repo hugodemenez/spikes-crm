@@ -87,7 +87,7 @@ export default function NavItem({ path }: { path: string }) {
             <Link href={paths[path].path}>
                 <li
                     className={cn(
-                        "p-2 rounded-lg pl-4 font-semibold text-sm flex gap-x-2 items-center",
+                        "p-2 rounded-lg pl-4 font-semibold text-sm flex gap-x-2 items-center text-[#344054]",
                         pathname === paths[path].path && "bg-white"
 
                     )}>
@@ -97,7 +97,7 @@ export default function NavItem({ path }: { path: string }) {
                     {paths[path].displayName}
                     {
                         path === 'notifications' && notificationsCount > 0 && (
-                            <Badge className="rounded-sm px-2 min-w-[30px] flex items-center justify-around text-[8px] h-4" >{notificationsCount}</Badge>
+                            <Badge className="rounded-sm px-2 min-w-[30px] flex items-center justify-around text-[8px] h-4 bg-[#101828D4]" >{notificationsCount}</Badge>
                         )
                     }
                 </li>

@@ -15,6 +15,9 @@ import React from "react"
 import { Input } from "./ui/input"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
+
 
 export default function SearchBar() {
     const [open, setOpen] = React.useState(false)
@@ -44,8 +47,8 @@ export default function SearchBar() {
                     placeholder="Search"
                 />
                 <p className="text-sm text-muted-foreground absolute right-2 flex items-center">
-                    <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-                        <span className="text-sm font-bold">⌘ K</span>
+                    <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded  bg-[#F8FAFB] px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+                        <span className={cn("text-base font-semibold text-[#86858A]",GeistSans.className)}>⌘ K</span>
                     </kbd>
                 </p>
             </div>

@@ -92,7 +92,7 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
     }
 
     return (
-        <div className="h-full flex flex-col gap-y-6 overflow-hidden">
+        <div className="h-full flex flex-col gap-y-6 overflow-hidden overflow-x-scroll">
             <div className="flex justify-between py-2 px-2 sm:pl-4 sm:pr-16  flex-wrap gap-y-2 h-fit">
                 <div className="flex gap-x-2 items-center w-2xl flex-wrap gap-y-2 h-fit justify-between sm:justify-normal">
                     <div className="w-full sm:w-[250px]  flex items-center relative" >
@@ -316,7 +316,7 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                     <NewDealButton deals={initialDeals}></NewDealButton>
                 </div>
             </div>
-            <Table className="w-full h-full relative flex flex-col">
+            <Table className="w-fit h-full relative flex flex-col">
                 <TableHeader className="sticky w-full flex">
                     <TableRow className="w-full bg-muted flex items-center min-h-6 flex-shrink-0 overflow-x-hidden">
                         <TableHead className="w-[50px] flex-shrink-0 flex  items-center"><Checkbox onCheckedChange={handleCheckAll} /></TableHead>

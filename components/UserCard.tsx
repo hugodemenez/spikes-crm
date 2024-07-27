@@ -45,7 +45,7 @@ export default function UserCard() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Card className="cursor-pointer">
+                <Card className="cursor-pointer border-[#DEDEE8] bg-gradient-to-b from-white to-[#F8FAFB] rounded-xl">
                     <CardContent className="flex p-2 items-center gap-x-2 h-16 justify-between">
                         <div className="relative  items-center w-12 h-12 flex-shrink-0">
                             <Image src={"/user.png"} alt={"user avatar"} height={64} width={64} className="rounded-sm h-12 w-12"></Image>
