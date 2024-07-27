@@ -36,15 +36,15 @@ import NewDealButton from "./NewDealButton";
 function renderStatus(status: string) {
     switch (status) {
         case 'Pending':
-            return <div className="bg-yellow-500 h-2 w-2 rounded-full"></div>;
+            return <div className="bg-yellow-500 h-2 w-2 rounded-full hidden sm:block"></div>;
         case 'Cancelled':
-            return <div className="bg-red-500 h-2 w-2 rounded-full"></div>;
+            return <div className="bg-red-500 h-2 w-2 rounded-full hidden sm:block"></div>;
         case 'Ongoing':
-            return <div className="bg-green-500 h-2 w-2 rounded-full"></div>;
+            return <div className="bg-green-500 h-2 w-2 rounded-full hidden sm:block"></div>;
         case 'Waiting for Confirmation':
-            return <div className="bg-purple-500 h-2 w-2 rounded-full"></div>;
+            return <div className="bg-purple-500 h-2 w-2 rounded-full hidden sm:block"></div>;
         case 'Completed':
-            return <div className="bg-blue-500 h-2 w-2 rounded-full"></div>;
+            return <div className="bg-blue-500 h-2 w-2 rounded-full hidden sm:block"></div>;
     }
 }
 
@@ -316,16 +316,16 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                     <NewDealButton deals={initialDeals}></NewDealButton>
                 </div>
             </div>
-            <Table className="w-fit h-full relative flex flex-col">
+            <Table className="w-full min-w-fit 2xl:w-full h-full relative flex flex-col">
                 <TableHeader className="sticky w-full flex">
-                    <TableRow className="w-full bg-muted flex items-center min-h-6 flex-shrink-0 overflow-x-hidden">
-                        <TableHead className="w-[50px] flex-shrink-0 flex  items-center"><Checkbox onCheckedChange={handleCheckAll} /></TableHead>
-                        <TableHead className="w-[100px] flex-shrink-0 hidden sm:flex  items-center">Add</TableHead>
-                        <TableHead className="w-[100px] sm:w-[250px] flex-shrink-0 flex items-center">Object</TableHead>
-                        <TableHead className="w-[80px] sm:w-[250px] flex-shrink-0 flex items-center">Company</TableHead>
-                        <TableHead className="w-[40px] sm:w-[250px] flex-shrink-0 flex items-center">Status</TableHead>
-                        <TableHead className="w-[100px] sm:w-[250px]  flex flex-1 text-right items-center self-end flex-shrink-0">
-                            <div className="text-right w-[100px]">
+                    <TableRow className="w-full bg-muted flex items-center justify-between min-h-6 flex-shrink-0 overflow-x-hidden">
+                        <TableHead className="min-w-[50px] flex-shrink-0 flex  items-center"><Checkbox onCheckedChange={handleCheckAll} /></TableHead>
+                        <TableHead className="min-w-[100px] flex-shrink-0 hidden sm:flex  items-center">Add</TableHead>
+                        <TableHead className="min-w-[220px]  flex-shrink-0 flex items-center">Object</TableHead>
+                        <TableHead className="min-w-[220px]  flex-shrink-0 flex items-center">Company</TableHead>
+                        <TableHead className="min-w-[200px]  flex-shrink-0 flex items-center">Status</TableHead>
+                        <TableHead className="min-w-[200px] flex text-right items-center self-end flex-shrink-0">
+                            <div className="text-right">
                                 Amount
                             </div>
                         </TableHead>
@@ -334,25 +334,23 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                 <TableBody className="flex flex-col h-full flex-1 overflow-y-auto box-border flex-shrink-0 w-full overflow-x-hidden">
                     {
                         deals.map((deal) => (
-                            <TableRow key={deal.id} className="w-full flex items-center min-h-[72px] flex-shrink-0">
-                                <TableCell className="flex flex-shrink-0 w-[50px]"><Checkbox checked={deal.checked} onCheckedChange={(checked) => handleCheck(deal, Boolean(checked))} /></TableCell>
-                                <TableCell className="hidden sm:flex  flex-shrink-0 w-[100px]">{deal.date}</TableCell>
-                                <TableCell className="flex-shrink-0 w-[100px] sm:w-[250px]">{deal.object.length > 22 ? `${deal.object.slice(0, 22)}...` : deal.object}</TableCell>
-                                <TableCell className="flex-shrink-0 w-[80px] sm:w-[250px]">
+                            <TableRow key={deal.id} className="w-full flex items-center min-h-[72px] flex-shrink-0 justify-between">
+                                <TableCell className="min-w-[50px] flex flex-shrink-0 "><Checkbox checked={deal.checked} onCheckedChange={(checked) => handleCheck(deal, Boolean(checked))} /></TableCell>
+                                <TableCell className="hidden sm:flex  flex-shrink-0 min-w-[100px]">{deal.date}</TableCell>
+                                <TableCell className="flex-shrink-0 min-w-[220px] ">{deal.object.length > 22 ? `${deal.object.slice(0, 22)}...` : deal.object}</TableCell>
+                                <TableCell className="flex-shrink-0 min-w-[220px] ">
                                     <div className="flex flex-shrink-0 items-center gap-x-2">
                                         <Image src={deal.companyIcon} className="hidden sm:block rounded-full" width={24} height={24} alt={`${deal.company}-logo`} />{deal.company}
                                     </div>
                                 </TableCell>
-                                <TableCell className="w-[40px] sm:w-[250px] flex-shrink-0">
+                                <TableCell className="min-w-[200px] flex-shrink-0">
                                     <div className="flex gap-x-2 items-center">
                                         {renderStatus(deal.status)}
-                                        <div className="hidden sm:block">
                                             {deal.status}
-                                        </div>
                                     </div>
                                 </TableCell>
-                                <TableCell className="flex-1 text-right flex items-center flex-shrink-0">
-                                    <div className="text-right w-[100px]">
+                                <TableCell className="text-right flex items-center flex-shrink-0 min-w-[200px]">
+                                    <div className="text-right ">
                                         {deal.amount}
                                     </div>
                                 </TableCell>
