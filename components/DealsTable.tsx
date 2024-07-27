@@ -31,6 +31,12 @@ import {
 import React from "react";
 import { CommandList } from "cmdk";
 import NewDealButton from "./NewDealButton";
+import {
+    Drawer,
+    DrawerContent,
+    DrawerTrigger,
+} from "@/components/ui/drawer"
+import { useMediaQuery } from "@/lib/media";
 
 
 function renderStatus(status: string) {
@@ -49,6 +55,8 @@ function renderStatus(status: string) {
 }
 
 export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
+    const sm = useMediaQuery('640')
+
     const [deals, setDeals] = useState(initialDeals); // Initialize state with initial deals
     const [openObjectSearch, setOpenObjectSearch] = React.useState(false)
     const [objectSearchValue, setObjectSearchValue] = React.useState("")
@@ -129,172 +137,353 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                             placeholder="Search"
                         />
                     </div>
-                    <Popover open={openObjectSearch} onOpenChange={setOpenObjectSearch}>
-                        <PopoverTrigger asChild>
-                            <Button
-                                variant="outline"
-                                role="combobox"
-                                aria-expanded={openObjectSearch}
-                                className="w-[110px] justify-between max-h-8"
-                            >
-                                <p className="truncate w-full">
-                                    {objectSearchValue
-                                        ? initialDeals.find((deal) => deal.object === objectSearchValue)?.object.length ?? 0 > 22 ? `${initialDeals.find((deal) => deal.object === objectSearchValue)?.object.slice(0, 22)}...` : initialDeals.find((deal) => deal.object === objectSearchValue)?.object
-                                        : "Object"}
-                                </p>
-                                <ChevronDown className="ml-2 h-3 w-3 shrink-0 opacity-50" />
-                            </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-[150px] sm:w-[400px] p-0">
-                            <Command >
-                                <CommandList>
-                                    <CommandInput placeholder="Search object..." className="text-lg sm:text-sm" />
-                                    <CommandEmpty>No deal found.</CommandEmpty>
-                                    <CommandGroup>
-                                        {deals.map((deal) => (
-                                            <CommandItem
-                                                key={deal.object}
-                                                value={deal.object}
-                                                onSelect={(currentValue) => {
-                                                    setObjectSearchValue(currentValue === objectSearchValue ? "" : currentValue)
-                                                    setOpenObjectSearch(false)
-                                                    if (currentValue === objectSearchValue) {
-                                                        // Reset the deals taking statusSearchValue and companySearchValue into account
-                                                        setDeals(initialDeals.filter(deal =>
-                                                            (deal.status === statusSearchValue || statusSearchValue === "")
-                                                            &&
-                                                            (deal.company === companySearchValue || companySearchValue === "")))
-                                                        return
-                                                    }
-                                                    setDeals(deals.filter(deal => deal.object === currentValue))
-                                                }}
-                                            >
-                                                <Check
-                                                    className={cn(
-                                                        "mr-2 h-4 w-4",
-                                                        objectSearchValue === deal.object ? "opacity-100" : "opacity-0"
-                                                    )}
-                                                />
-                                                {deal.object}
-                                            </CommandItem>
-                                        ))}
+                    {sm ?
+                        <>
+                            <Drawer open={openObjectSearch} onOpenChange={setOpenObjectSearch}>
+                                <DrawerTrigger asChild>
+                                <Button
+                                        variant="outline"
+                                        role="combobox"
+                                        aria-expanded={openObjectSearch}
+                                        className="w-[110px] justify-between max-h-8"
+                                    >
+                                        <p className="truncate w-full">
+                                            {objectSearchValue
+                                                ? initialDeals.find((deal) => deal.object === objectSearchValue)?.object.length ?? 0 > 22 ? `${initialDeals.find((deal) => deal.object === objectSearchValue)?.object.slice(0, 22)}...` : initialDeals.find((deal) => deal.object === objectSearchValue)?.object
+                                                : "Object"}
+                                        </p>
+                                        <ChevronDown className="ml-2 h-3 w-3 shrink-0 opacity-50" />
+                                    </Button>
+                                </DrawerTrigger>
+                                <DrawerContent>
+                                    <div className="mt-4 border-t">
+                                    <Command >
+                                        <CommandList>
+                                            <CommandInput placeholder="Search object..." className="text-lg sm:text-sm" />
+                                            <CommandEmpty>No deal found.</CommandEmpty>
+                                            <CommandGroup>
+                                                {deals.map((deal) => (
+                                                    <CommandItem
+                                                        key={deal.object}
+                                                        value={deal.object}
+                                                        onSelect={(currentValue) => {
+                                                            setObjectSearchValue(currentValue === objectSearchValue ? "" : currentValue)
+                                                            setOpenObjectSearch(false)
+                                                            if (currentValue === objectSearchValue) {
+                                                                // Reset the deals taking statusSearchValue and companySearchValue into account
+                                                                setDeals(initialDeals.filter(deal =>
+                                                                    (deal.status === statusSearchValue || statusSearchValue === "")
+                                                                    &&
+                                                                    (deal.company === companySearchValue || companySearchValue === "")))
+                                                                return
+                                                            }
+                                                            setDeals(deals.filter(deal => deal.object === currentValue))
+                                                        }}
+                                                    >
+                                                        <Check
+                                                            className={cn(
+                                                                "mr-2 h-4 w-4",
+                                                                objectSearchValue === deal.object ? "opacity-100" : "opacity-0"
+                                                            )}
+                                                        />
+                                                        {deal.object}
+                                                    </CommandItem>
+                                                ))}
 
-                                    </CommandGroup>
-                                </CommandList>
-                            </Command>
-                        </PopoverContent>
-                    </Popover>
-                    <Popover open={openCompanySearch} onOpenChange={setOpenCompanySearch}>
-                        <PopoverTrigger asChild>
-                            <Button
-                                variant="outline"
-                                role="combobox"
-                                aria-expanded={openCompanySearch}
-                                className="w-[130px] justify-between max-h-8"
-                            >
-                                <p className="w-full truncate">
-                                    {companySearchValue
-                                        ? initialDeals.find((deal) => deal.company === companySearchValue)?.company
-                                        : "Company"}
-                                </p>
-                                <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                            </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-[150px] sm:w-[400px] p-0">
-                            <Command>
-                                <CommandList>
-                                    <CommandInput placeholder="Search company..." className="text-lg sm:text-sm" />
-                                    <CommandEmpty>No deal found.</CommandEmpty>
-                                    <CommandGroup>
-                                        {deals.map((deal) => (
-                                            <CommandItem
-                                                key={deal.company}
-                                                value={deal.company}
-                                                onSelect={(currentValue) => {
-                                                    setCompanySearchValue(currentValue === companySearchValue ? "" : currentValue)
-                                                    setOpenCompanySearch(false)
-                                                    if (currentValue === companySearchValue) {
-                                                        // Reset the deals taking statusSearchValue and companySearchValue into account
-                                                        setDeals(initialDeals.filter(deal =>
-                                                            (deal.status === statusSearchValue || statusSearchValue === "")
-                                                            &&
-                                                            (deal.object === objectSearchValue || objectSearchValue === "")))
-                                                        return
-                                                    }
-                                                    setDeals(initialDeals.filter(deal => deal.company === currentValue))
-                                                }}
-                                            >
-                                                <Check
-                                                    className={cn(
-                                                        "mr-2 h-4 w-4",
-                                                        companySearchValue === deal.company ? "opacity-100" : "opacity-0"
-                                                    )}
-                                                />
-                                                {deal.company}
-                                            </CommandItem>
-                                        ))}
-                                    </CommandGroup>
-                                </CommandList>
-                            </Command>
-                        </PopoverContent>
-                    </Popover>
-                    <Popover open={openStatusSearch} onOpenChange={setOpenStatusSearch}>
-                        <PopoverTrigger asChild>
-                            <Button
-                                variant="outline"
-                                role="combobox"
-                                aria-expanded={openStatusSearch}
-                                className="w-[110px] justify-between max-h-8"
-                            >
-                                <p className="w-full truncate">
-                                    {statusSearchValue
-                                        ? initialDeals.find((deal) => deal.status === statusSearchValue)?.status.length ?? 0 > 22 ? `${initialDeals.find((deal) => deal.status === statusSearchValue)?.status.slice(0, 22)}...` : initialDeals.find((deal) => deal.status === statusSearchValue)?.status
-                                        : "Status"}
-                                </p>
-                                <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                            </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-[150px] sm:w-[400px] p-0">
-                            <Command >
-                                <CommandList>
-                                    <CommandInput placeholder="Search status..." className="text-lg sm:text-sm" />
-                                    <CommandEmpty>No deal found.</CommandEmpty>
-                                    <CommandGroup>
-                                        {Array.from(new Set(deals.map(deal => deal.status))).map((status) => (
-                                            <CommandItem
-                                                key={status}
-                                                value={status}
-                                                className=""
-                                                onSelect={(currentValue) => {
-                                                    console.log(currentValue)
-                                                    setStatusSearchValue(currentValue === statusSearchValue ? "" : currentValue)
-                                                    setOpenStatusSearch(false)
-                                                    if (currentValue === statusSearchValue) {
-                                                        // Reset the deals taking statusSearchValue and companySearchValue into account
-                                                        setDeals(deals.filter(deal =>
-                                                            (deal.company === companySearchValue || companySearchValue === "")
-                                                            &&
-                                                            (deal.object === objectSearchValue || objectSearchValue === "")))
-                                                        return
-                                                    }
-                                                    setDeals(initialDeals.filter(deal => deal.status === currentValue))
-                                                }}
-                                            >
-                                                <Check
-                                                    className={cn(
-                                                        "mr-2 h-4 w-4",
-                                                        statusSearchValue === status ? "opacity-100" : "opacity-0"
-                                                    )}
-                                                />
-                                                {status}
-                                            </CommandItem>
-                                        ))}
+                                            </CommandGroup>
+                                        </CommandList>
+                                    </Command>
+                                    </div>
+                                </DrawerContent>
+                            </Drawer>
+                            <Drawer open={openCompanySearch} onOpenChange={setOpenCompanySearch}>
+                                <DrawerTrigger asChild>
+                                <Button
+                                        variant="outline"
+                                        role="combobox"
+                                        aria-expanded={openCompanySearch}
+                                        className="w-[130px] justify-between max-h-8"
+                                    >
+                                        <p className="w-full truncate">
+                                            {companySearchValue
+                                                ? initialDeals.find((deal) => deal.company === companySearchValue)?.company
+                                                : "Company"}
+                                        </p>
+                                        <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                    </Button>
+                                </DrawerTrigger>
+                                <DrawerContent>
+                                    <div className="mt-4 border-t">
+                                    <Command>
+                                        <CommandList>
+                                            <CommandInput placeholder="Search company..." className="text-lg sm:text-sm" />
+                                            <CommandEmpty>No deal found.</CommandEmpty>
+                                            <CommandGroup>
+                                                {deals.map((deal) => (
+                                                    <CommandItem
+                                                        key={deal.company}
+                                                        value={deal.company}
+                                                        onSelect={(currentValue) => {
+                                                            setCompanySearchValue(currentValue === companySearchValue ? "" : currentValue)
+                                                            setOpenCompanySearch(false)
+                                                            if (currentValue === companySearchValue) {
+                                                                // Reset the deals taking statusSearchValue and companySearchValue into account
+                                                                setDeals(initialDeals.filter(deal =>
+                                                                    (deal.status === statusSearchValue || statusSearchValue === "")
+                                                                    &&
+                                                                    (deal.object === objectSearchValue || objectSearchValue === "")))
+                                                                return
+                                                            }
+                                                            setDeals(initialDeals.filter(deal => deal.company === currentValue))
+                                                        }}
+                                                    >
+                                                        <Check
+                                                            className={cn(
+                                                                "mr-2 h-4 w-4",
+                                                                companySearchValue === deal.company ? "opacity-100" : "opacity-0"
+                                                            )}
+                                                        />
+                                                        {deal.company}
+                                                    </CommandItem>
+                                                ))}
+                                            </CommandGroup>
+                                        </CommandList>
+                                    </Command>
+                                    </div>
+                                </DrawerContent>
+                            </Drawer>
+                            <Drawer open={openStatusSearch} onOpenChange={setOpenStatusSearch}>
+                                <DrawerTrigger asChild>
+                                <Button
+                                        variant="outline"
+                                        role="combobox"
+                                        aria-expanded={openStatusSearch}
+                                        className="w-[110px] justify-between max-h-8"
+                                    >
+                                        <p className="w-full truncate">
+                                            {statusSearchValue
+                                                ? initialDeals.find((deal) => deal.status === statusSearchValue)?.status.length ?? 0 > 22 ? `${initialDeals.find((deal) => deal.status === statusSearchValue)?.status.slice(0, 22)}...` : initialDeals.find((deal) => deal.status === statusSearchValue)?.status
+                                                : "Status"}
+                                        </p>
+                                        <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                    </Button>
+                                </DrawerTrigger>
+                                <DrawerContent>
+                                    <div className="mt-4 border-t">
+                                    <Command >
+                                        <CommandList>
+                                            <CommandInput placeholder="Search status..." className="text-lg sm:text-sm" />
+                                            <CommandEmpty>No deal found.</CommandEmpty>
+                                            <CommandGroup>
+                                                {Array.from(new Set(deals.map(deal => deal.status))).map((status) => (
+                                                    <CommandItem
+                                                        key={status}
+                                                        value={status}
+                                                        className=""
+                                                        onSelect={(currentValue) => {
+                                                            console.log(currentValue)
+                                                            setStatusSearchValue(currentValue === statusSearchValue ? "" : currentValue)
+                                                            setOpenStatusSearch(false)
+                                                            if (currentValue === statusSearchValue) {
+                                                                // Reset the deals taking statusSearchValue and companySearchValue into account
+                                                                setDeals(deals.filter(deal =>
+                                                                    (deal.company === companySearchValue || companySearchValue === "")
+                                                                    &&
+                                                                    (deal.object === objectSearchValue || objectSearchValue === "")))
+                                                                return
+                                                            }
+                                                            setDeals(initialDeals.filter(deal => deal.status === currentValue))
+                                                        }}
+                                                    >
+                                                        <Check
+                                                            className={cn(
+                                                                "mr-2 h-4 w-4",
+                                                                statusSearchValue === status ? "opacity-100" : "opacity-0"
+                                                            )}
+                                                        />
+                                                        {status}
+                                                    </CommandItem>
+                                                ))}
 
-                                    </CommandGroup>
-                                </CommandList>
-                            </Command>
-                        </PopoverContent>
-                    </Popover>
+                                            </CommandGroup>
+                                        </CommandList>
+                                    </Command>
+                                    </div>
+                                </DrawerContent>
+                            </Drawer>
+                        </>
+                        :
+                        <>
+                            <Popover open={openObjectSearch} onOpenChange={setOpenObjectSearch}>
+                                <PopoverTrigger asChild>
+                                    <Button
+                                        variant="outline"
+                                        role="combobox"
+                                        aria-expanded={openObjectSearch}
+                                        className="w-[110px] justify-between max-h-8"
+                                    >
+                                        <p className="truncate w-full">
+                                            {objectSearchValue
+                                                ? initialDeals.find((deal) => deal.object === objectSearchValue)?.object.length ?? 0 > 22 ? `${initialDeals.find((deal) => deal.object === objectSearchValue)?.object.slice(0, 22)}...` : initialDeals.find((deal) => deal.object === objectSearchValue)?.object
+                                                : "Object"}
+                                        </p>
+                                        <ChevronDown className="ml-2 h-3 w-3 shrink-0 opacity-50" />
+                                    </Button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-[150px] sm:w-[400px] p-0">
+                                    <Command >
+                                        <CommandList>
+                                            <CommandInput placeholder="Search object..." className="text-lg sm:text-sm" />
+                                            <CommandEmpty>No deal found.</CommandEmpty>
+                                            <CommandGroup>
+                                                {deals.map((deal) => (
+                                                    <CommandItem
+                                                        key={deal.object}
+                                                        value={deal.object}
+                                                        onSelect={(currentValue) => {
+                                                            setObjectSearchValue(currentValue === objectSearchValue ? "" : currentValue)
+                                                            setOpenObjectSearch(false)
+                                                            if (currentValue === objectSearchValue) {
+                                                                // Reset the deals taking statusSearchValue and companySearchValue into account
+                                                                setDeals(initialDeals.filter(deal =>
+                                                                    (deal.status === statusSearchValue || statusSearchValue === "")
+                                                                    &&
+                                                                    (deal.company === companySearchValue || companySearchValue === "")))
+                                                                return
+                                                            }
+                                                            setDeals(deals.filter(deal => deal.object === currentValue))
+                                                        }}
+                                                    >
+                                                        <Check
+                                                            className={cn(
+                                                                "mr-2 h-4 w-4",
+                                                                objectSearchValue === deal.object ? "opacity-100" : "opacity-0"
+                                                            )}
+                                                        />
+                                                        {deal.object}
+                                                    </CommandItem>
+                                                ))}
+
+                                            </CommandGroup>
+                                        </CommandList>
+                                    </Command>
+                                </PopoverContent>
+                            </Popover>
+                            <Popover open={openCompanySearch} onOpenChange={setOpenCompanySearch}>
+                                <PopoverTrigger asChild>
+                                    <Button
+                                        variant="outline"
+                                        role="combobox"
+                                        aria-expanded={openCompanySearch}
+                                        className="w-[130px] justify-between max-h-8"
+                                    >
+                                        <p className="w-full truncate">
+                                            {companySearchValue
+                                                ? initialDeals.find((deal) => deal.company === companySearchValue)?.company
+                                                : "Company"}
+                                        </p>
+                                        <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                    </Button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-[150px] sm:w-[400px] p-0">
+                                    <Command>
+                                        <CommandList>
+                                            <CommandInput placeholder="Search company..." className="text-lg sm:text-sm" />
+                                            <CommandEmpty>No deal found.</CommandEmpty>
+                                            <CommandGroup>
+                                                {deals.map((deal) => (
+                                                    <CommandItem
+                                                        key={deal.company}
+                                                        value={deal.company}
+                                                        onSelect={(currentValue) => {
+                                                            setCompanySearchValue(currentValue === companySearchValue ? "" : currentValue)
+                                                            setOpenCompanySearch(false)
+                                                            if (currentValue === companySearchValue) {
+                                                                // Reset the deals taking statusSearchValue and companySearchValue into account
+                                                                setDeals(initialDeals.filter(deal =>
+                                                                    (deal.status === statusSearchValue || statusSearchValue === "")
+                                                                    &&
+                                                                    (deal.object === objectSearchValue || objectSearchValue === "")))
+                                                                return
+                                                            }
+                                                            setDeals(initialDeals.filter(deal => deal.company === currentValue))
+                                                        }}
+                                                    >
+                                                        <Check
+                                                            className={cn(
+                                                                "mr-2 h-4 w-4",
+                                                                companySearchValue === deal.company ? "opacity-100" : "opacity-0"
+                                                            )}
+                                                        />
+                                                        {deal.company}
+                                                    </CommandItem>
+                                                ))}
+                                            </CommandGroup>
+                                        </CommandList>
+                                    </Command>
+                                </PopoverContent>
+                            </Popover>
+                            <Popover open={openStatusSearch} onOpenChange={setOpenStatusSearch}>
+                                <PopoverTrigger asChild>
+                                    <Button
+                                        variant="outline"
+                                        role="combobox"
+                                        aria-expanded={openStatusSearch}
+                                        className="w-[110px] justify-between max-h-8"
+                                    >
+                                        <p className="w-full truncate">
+                                            {statusSearchValue
+                                                ? initialDeals.find((deal) => deal.status === statusSearchValue)?.status.length ?? 0 > 22 ? `${initialDeals.find((deal) => deal.status === statusSearchValue)?.status.slice(0, 22)}...` : initialDeals.find((deal) => deal.status === statusSearchValue)?.status
+                                                : "Status"}
+                                        </p>
+                                        <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                    </Button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-[150px] sm:w-[400px] p-0">
+                                    <Command >
+                                        <CommandList>
+                                            <CommandInput placeholder="Search status..." className="text-lg sm:text-sm" />
+                                            <CommandEmpty>No deal found.</CommandEmpty>
+                                            <CommandGroup>
+                                                {Array.from(new Set(deals.map(deal => deal.status))).map((status) => (
+                                                    <CommandItem
+                                                        key={status}
+                                                        value={status}
+                                                        className=""
+                                                        onSelect={(currentValue) => {
+                                                            console.log(currentValue)
+                                                            setStatusSearchValue(currentValue === statusSearchValue ? "" : currentValue)
+                                                            setOpenStatusSearch(false)
+                                                            if (currentValue === statusSearchValue) {
+                                                                // Reset the deals taking statusSearchValue and companySearchValue into account
+                                                                setDeals(deals.filter(deal =>
+                                                                    (deal.company === companySearchValue || companySearchValue === "")
+                                                                    &&
+                                                                    (deal.object === objectSearchValue || objectSearchValue === "")))
+                                                                return
+                                                            }
+                                                            setDeals(initialDeals.filter(deal => deal.status === currentValue))
+                                                        }}
+                                                    >
+                                                        <Check
+                                                            className={cn(
+                                                                "mr-2 h-4 w-4",
+                                                                statusSearchValue === status ? "opacity-100" : "opacity-0"
+                                                            )}
+                                                        />
+                                                        {status}
+                                                    </CommandItem>
+                                                ))}
+
+                                            </CommandGroup>
+                                        </CommandList>
+                                    </Command>
+                                </PopoverContent>
+                            </Popover>
+
+                        </>
+
+                    }
                     {
                         (objectSearchValue !== "" || companySearchValue !== "" || statusSearchValue !== "") &&
                         <Button variant={'ghost'} className='h-8' onClick={() => {
@@ -346,7 +535,7 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                                 <TableCell className="min-w-[210px] flex-shrink-0">
                                     <div className="flex gap-x-2 items-center">
                                         {renderStatus(deal.status)}
-                                            {deal.status}
+                                        {deal.status}
                                     </div>
                                 </TableCell>
                                 <TableCell className="text-right flex items-center flex-shrink-0 min-w-[200px]">
