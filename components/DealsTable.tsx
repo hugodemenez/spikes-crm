@@ -98,19 +98,28 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                     <div className="w-full sm:w-[250px]  flex items-center relative" >
                         <Search className=" left-2 absolute h-4 w-4 shrink-0 opacity-50 " />
                         <Input
-                        
-                            onChange={(event) => {
-                                const value = event.target.value
-                                // Reset the deals taking statusSearchValue and companySearchValue into account
-                                setDeals(initialDeals.filter(deal =>
-                                    (deal.status === statusSearchValue || statusSearchValue === "")
-                                    &&
-                                    (deal.company === companySearchValue || companySearchValue === "")))
-                                if (value === "") {
-                                    return
+                            onChange={
+                                (event) => {
+                                    const value = event.target.value
+                                    // Reset the deals taking statusSearchValue and companySearchValue into account
+                                    setDeals(initialDeals.filter(deal =>
+                                        (deal.status === statusSearchValue || statusSearchValue === "")
+                                        &&
+                                        (deal.company === companySearchValue || companySearchValue === "")))
+                                    if (value === "") {
+                                        return
+                                    }
+                                    setDeals(deals.filter(
+                                        deal => {
+                                            return (
+                                                deal.object.toLowerCase().includes(value.toLowerCase())
+                                                ||
+                                                deal.company.toLowerCase().includes(value.toLowerCase())
+                                            )
+                                        }
+                                    )
+                                    )
                                 }
-                                setDeals(deals.filter(deal => deal.object.toLowerCase().includes(value.toLowerCase())))
-                            }
                             }
 
                             className={cn(
@@ -129,9 +138,9 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                                 className="w-[110px] justify-between max-h-8"
                             >
                                 <p className="truncate w-full">
-                                {objectSearchValue
-                                    ? initialDeals.find((deal) => deal.object === objectSearchValue)?.object.length ?? 0 > 22 ? `${initialDeals.find((deal) => deal.object === objectSearchValue)?.object.slice(0, 22)}...` : initialDeals.find((deal) => deal.object === objectSearchValue)?.object
-                                    : "Object"}
+                                    {objectSearchValue
+                                        ? initialDeals.find((deal) => deal.object === objectSearchValue)?.object.length ?? 0 > 22 ? `${initialDeals.find((deal) => deal.object === objectSearchValue)?.object.slice(0, 22)}...` : initialDeals.find((deal) => deal.object === objectSearchValue)?.object
+                                        : "Object"}
                                 </p>
                                 <ChevronDown className="ml-2 h-3 w-3 shrink-0 opacity-50" />
                             </Button>
@@ -184,9 +193,9 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                                 className="w-[130px] justify-between max-h-8"
                             >
                                 <p className="w-full truncate">
-                                {companySearchValue
-                                    ? initialDeals.find((deal) => deal.company === companySearchValue)?.company
-                                    : "Company"}
+                                    {companySearchValue
+                                        ? initialDeals.find((deal) => deal.company === companySearchValue)?.company
+                                        : "Company"}
                                 </p>
                                 <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
@@ -238,9 +247,9 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                                 className="w-[110px] justify-between max-h-8"
                             >
                                 <p className="w-full truncate">
-                                {statusSearchValue
-                                    ? initialDeals.find((deal) => deal.status === statusSearchValue)?.status.length ?? 0 > 22 ? `${initialDeals.find((deal) => deal.status === statusSearchValue)?.status.slice(0, 22)}...` : initialDeals.find((deal) => deal.status === statusSearchValue)?.status
-                                    : "Status"}
+                                    {statusSearchValue
+                                        ? initialDeals.find((deal) => deal.status === statusSearchValue)?.status.length ?? 0 > 22 ? `${initialDeals.find((deal) => deal.status === statusSearchValue)?.status.slice(0, 22)}...` : initialDeals.find((deal) => deal.status === statusSearchValue)?.status
+                                        : "Status"}
                                 </p>
                                 <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
@@ -248,7 +257,7 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                         <PopoverContent className="w-[150px] sm:w-[400px] p-0">
                             <Command >
                                 <CommandList>
-                                    <CommandInput placeholder="Search status..." className="text-lg sm:text-sm"/>
+                                    <CommandInput placeholder="Search status..." className="text-lg sm:text-sm" />
                                     <CommandEmpty>No deal found.</CommandEmpty>
                                     <CommandGroup>
                                         {Array.from(new Set(deals.map(deal => deal.status))).map((status) => (
@@ -338,7 +347,7 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                                     <div className="flex gap-x-2 items-center">
                                         {renderStatus(deal.status)}
                                         <div className="hidden sm:block">
-                                        {deal.status}
+                                            {deal.status}
                                         </div>
                                     </div>
                                 </TableCell>
@@ -352,7 +361,7 @@ export default function DealsTable({ initialDeals }: { initialDeals: Deal[] }) {
                     }
                 </TableBody>
             </Table>
-            </div>
+        </div>
     )
 }
 

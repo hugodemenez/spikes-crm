@@ -26,7 +26,7 @@ import { DialogClose } from "./ui/dialog"
 
 
 
-export default function NewDealForm({deals}: {deals: Deal[]}) {
+export default function NewDealForm({ deals }: { deals: Deal[] }) {
   const formSchema = z.object({
 
     object: z.string().min(2, {
@@ -109,13 +109,13 @@ export default function NewDealForm({deals}: {deals: Deal[]}) {
             <FormItem>
               <FormLabel>Company Logo URL</FormLabel>
               <div className="flex items-center">
-              <Avatar className="absolute ml-2 h-6 w-6">
-                <AvatarImage src={field.value} />
-                <AvatarFallback>SP</AvatarFallback>
-              </Avatar>
-              <FormControl>
-                <Input className="pl-12" placeholder="https://img.png" {...field} />
-              </FormControl>
+                <Avatar className="absolute ml-2 h-6 w-6">
+                  <AvatarImage src={field.value} />
+                  <AvatarFallback>SP</AvatarFallback>
+                </Avatar>
+                <FormControl>
+                  <Input className="pl-12" placeholder="https://img.png" {...field} />
+                </FormControl>
               </div>
               <FormDescription>
                 This is the url of company logo
@@ -130,20 +130,20 @@ export default function NewDealForm({deals}: {deals: Deal[]}) {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Status</FormLabel>
-              <FormControl>
-                <Select onValueChange={field.onChange}>
-                  <SelectTrigger className="w-[180px]" defaultValue={form.getValues().status}>
-                    <SelectValue placeholder="Choose a status" />
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger className="w-[180px]" {...field}>
+                    <SelectValue placeholder="Choose a status" className="text-black" />
                   </SelectTrigger>
-                  <SelectContent>
-                    {Array.from(new Set(deals.map(deal => deal.status))).map((status) => (
-                      <SelectItem key={status} value={status}>
-                        {status}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </FormControl>
+                </FormControl>
+                <SelectContent>
+                  {Array.from(new Set(deals.map(deal => deal.status))).map((status) => (
+                    <SelectItem key={status} value={status}>
+                      {status}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <FormDescription>
                 This is the status of the deal
               </FormDescription>
@@ -168,7 +168,7 @@ export default function NewDealForm({deals}: {deals: Deal[]}) {
           )}
         />
         <DialogClose>
-        <Button type="submit">Add</Button>
+          <Button type="submit">Add</Button>
         </DialogClose>
       </form>
     </Form>
