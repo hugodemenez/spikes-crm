@@ -57,10 +57,11 @@ export default function NewDealForm({ deals, setDeals }: { deals: Deal[], setDea
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    const dateOptions: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric' };
     const newDeal: Deal = {
       id: deals.length + 1,
       checked: false,
-      date: new Date().toLocaleDateString(),
+      date: new Date().toLocaleDateString('en-US', dateOptions),
       object: values.object,
       company: values.company,
       status: values.status,
@@ -69,7 +70,7 @@ export default function NewDealForm({ deals, setDeals }: { deals: Deal[], setDea
     }
     console.log(newDeal)
     console.log(deals)
-    // setDeals((deals) => [newDeal, ...deals])
+    setDeals((deals) => [newDeal, ...deals])
     toast("No database connected, but the deal is concluded, thanks !")
   }
   return (
