@@ -8,7 +8,7 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
+  ],
   prefix: "",
   theme: {
     container: {
@@ -71,10 +71,15 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        'slide-in': {
+          from: { transform: 'translateX(12px)', opacity:'0' },
+          to: { transform: 'translateX(0px)',opacity:'1' },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        'slide-in': 'slide-in 0.2s ease-out',
       },
       boxShadow: {
         'custom': '0px 0px 0px 2px #F0F0F0, 0px 1px 2px 0px #1018280D, 0px 4px 9.8px 0px #FFFFFF40 inset',

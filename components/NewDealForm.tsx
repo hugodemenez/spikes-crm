@@ -26,7 +26,7 @@ import { DialogClose } from "./ui/dialog"
 
 
 
-export default function NewDealForm({ deals }: { deals: Deal[] }) {
+export default function NewDealForm({ deals, setDeals }: { deals: Deal[], setDeals: React.Dispatch<React.SetStateAction<Deal[]>> }) {
   const formSchema = z.object({
 
     object: z.string().min(2, {
@@ -61,10 +61,15 @@ export default function NewDealForm({ deals }: { deals: Deal[] }) {
       id: deals.length + 1,
       checked: false,
       date: new Date().toLocaleDateString(),
-      ...values,
+      object: values.object,
+      company: values.company,
+      status: values.status,
       companyIcon: values.companyLogo,
+      amount: values.amount,
     }
     console.log(newDeal)
+    console.log(deals)
+    // setDeals((deals) => [newDeal, ...deals])
     toast("No database connected, but the deal is concluded, thanks !")
   }
   return (
